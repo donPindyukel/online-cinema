@@ -3,14 +3,15 @@ import { Telegraf } from 'telegraf'
 import { Telegram } from './telegram.interface'
 import { getTelegramConfig } from 'src/config/telegram.config'
 import { ExtraReplyMessage } from 'telegraf/typings/telegram-types'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class TelegramService {
 	bot: Telegraf
 	options: Telegram
 
-	constructor() {
-		this.options = getTelegramConfig()
+	constructor(private readonly configService: ConfigService,) {
+		this.options = getTelegramConfig(configService)
 		this.bot = new Telegraf(this.options.token)
 	}
 

@@ -2,10 +2,12 @@ import { Injectable } from '@nestjs/common'
 import { FileResponse } from './file.interface'
 import { path } from 'app-root-path'
 import { ensureDir, writeFile } from 'fs-extra'
-import { File } from 'buffer'
+import { ConfigService } from '@nestjs/config'
 
 @Injectable()
 export class FileService {
+	constructor(private readonly configService: ConfigService){}
+
 	async saveFiles(
 		files: Express.Multer.File[],
 		folder = 'default'
@@ -25,4 +27,5 @@ export class FileService {
 
 		return res
 	}
+
 }
