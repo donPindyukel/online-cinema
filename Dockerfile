@@ -1,26 +1,24 @@
-FROM node:16.20-alpine3.17 as builder
+FROM node:16.20 AS build
 
-ENV NODE_ENV build
+WORKDIR /app
 
-WORKDIR /opt/app
-
-COPY . /opt/app
+COPY package.json yarn.lock ./
 
 RUN yarn install
+
+COPY . .
+
 RUN yarn build
 
+FROM node:16.20-slim
 
-# ---
+WORKDIR /app
 
-FROM node:16.8-alpine3.11
+COPY --from=build /app/dist ./dist
+COPY --from=build /app/package.json /app/yarn.lock ./
 
-ENV NODE_ENV production
+RUN yarn install --production
 
-USER node
-WORKDIR /home/node
-
-COPY --from=builder /opt/app/yarn*.json /opt/app/
-COPY --from=builder /opt/app/node_modules/ /opt/app/node_modules/
-COPY --from=builder /opt/app/dist/ /opt/app/dist/
+EXPOSE 4200
 
 CMD ["node", "dist/main.js"]
