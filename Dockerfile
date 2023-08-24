@@ -1,13 +1,15 @@
-FROM node:16.8-alpine3.11 as builder
+FROM node:16.20-alpine3.17 as builder
 
 ENV NODE_ENV build
 
-WORKDIR /home/node
+WORKDIR /opt/app
 
-COPY . /home/node
+COPY . /opt/app
 
-RUN yarn install
-RUN yarn build
+RUN npm ci
+RUN npm run build
+RUN npm prune --production
+
 
 # ---
 
@@ -18,8 +20,8 @@ ENV NODE_ENV production
 USER node
 WORKDIR /home/node
 
-COPY --from=builder /home/node/package*.json /home/node/
-COPY --from=builder /home/node/node_modules/ /home/node/node_modules/
-COPY --from=builder /home/node/dist/ /home/node/dist/
+COPY --from=builder /opt/app/package*.json /opt/app/
+COPY --from=builder /opt/app/node_modules/ /opt/app/node_modules/
+COPY --from=builder /opt/app/dist/ /opt/app/dist/
 
 CMD ["node", "dist/main.js"]
