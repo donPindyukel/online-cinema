@@ -20,4 +20,4 @@ jobs:
           username: ${{ secrets.VPS_USERNAME }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
-            ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 'bash -s' < ~/online-cinema/deploy.sh
+            ssh -i ${{ secrets.SSH_PRIVATE_KEY }} ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} 
