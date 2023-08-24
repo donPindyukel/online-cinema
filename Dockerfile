@@ -6,7 +6,7 @@ WORKDIR /opt/app
 
 COPY . /opt/app
 
-RUN npm ci
+RUN npm install
 RUN npm run build
 RUN npm prune --production
 
