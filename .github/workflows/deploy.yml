@@ -15,10 +15,15 @@ jobs:
 
       - name: Deploy to VPS
         uses: appleboy/ssh-action@master
+        env: 
+          NODE_ENV:  ${{ secrets.NODE_ENV }}
+          MONGO_URI: ${{ secrets.MONGO_URI }}
+          TELELGRAM:  ${{ secrets.TELELGRAM }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
+          envs: NODE_ENV, MONGO_URI, TELELGRAM
           script: |
             cd ~/online-cinema
             ./deploy.sh
