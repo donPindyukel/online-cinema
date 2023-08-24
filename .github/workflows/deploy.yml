@@ -18,12 +18,13 @@ jobs:
         env: 
           NODE_ENV:  ${{ secrets.NODE_ENV }}
           MONGO_URI: ${{ secrets.MONGO_URI }}
-          TELELGRAM:  ${{ secrets.TELELGRAM }}
+          TELEGRAM:  ${{ secrets.TELELGRAM }}
+          JWT_SECRET:  ${{ secrets.JWT_SECRET }}
         with:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NODE_ENV, MONGO_URI, TELELGRAM
+          envs: NODE_ENV, MONGO_URI, TELEGRAM
           script: |
             cd ~/online-cinema
             ./deploy.sh
