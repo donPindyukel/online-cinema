@@ -29,6 +29,7 @@ jobs:
             cd ~
             pm2 stop online-cinema
             cd online-cinema
+            git fetch
             git pull origin main
             rm -f .env
             rm -rf node_modules
