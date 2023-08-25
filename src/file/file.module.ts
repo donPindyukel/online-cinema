@@ -4,10 +4,11 @@ import { FileController } from './file.controller'
 import { ServeStaticModule } from '@nestjs/serve-static'
 import { path, resolve } from 'app-root-path'
 import { ConfigModule } from '@nestjs/config'
+
 @Module({
 	imports: [
 		ServeStaticModule.forRoot({
-			rootPath: `${process.env.NODE_ENV === 'development' ? path : resolve('/..')}/uploads`,
+			rootPath:  `${resolve('/..')}/uploads`,
 			serveRoot: '/uploads',
 		}),
 		ConfigModule,
