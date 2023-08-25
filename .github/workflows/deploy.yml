@@ -27,9 +27,11 @@ jobs:
           envs: NODE_ENV, MONGO_URI, TELEGRAM
           script: |
             cd ~
+            pm2 stop online-cinema
             rm -rf online-cinema
             git clone ${{ secrets.REPOSITORY }}
             ~/deploy.sh
             cd online-cinema
             yarn install
             yarn build
+            pm2 start dist/main.js --name online-cinema
