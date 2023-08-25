@@ -24,7 +24,7 @@ jobs:
           host: ${{ secrets.VPS_HOST }}
           username: ${{ secrets.VPS_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
-          envs: NODE_ENV, MONGO_URI, TELEGRAM
+          envs: NODE_ENV, MONGO_URI, TELEGRAM, JWT_SECRET
           script: |
             cd ~
             pm2 stop online-cinema
