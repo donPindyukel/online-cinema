@@ -33,6 +33,7 @@ jobs:
             git pull origin main
             rm -f .env
             rm -rf node_modules
+            rm -rf dist
             ~/deploy.sh
             yarn install
             yarn build
