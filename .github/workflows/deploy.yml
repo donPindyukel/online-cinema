@@ -28,10 +28,11 @@ jobs:
           script: |
             cd ~
             pm2 stop online-cinema
-            rm -rf online-cinema
-            git clone ${{ secrets.REPOSITORY }}
-            ~/deploy.sh
             cd online-cinema
+            git pull origin main
+            rm -f .env
+            rm -rf node_modules
+            ~/deploy.sh
             yarn install
             yarn build
             pm2 start dist/main.js --name online-cinema
